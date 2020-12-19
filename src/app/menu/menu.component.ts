@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { DataService } from '../data.service';
-import { Router } from '@angular/router';
-import { element } from 'protractor';
+import { helperComponent } from '../helper.component';
 
 @Component({
   selector: 'app-menu',
@@ -11,19 +8,15 @@ import { element } from 'protractor';
 })
 export class MenuComponent implements OnInit {
 
-  public element: any [];
+  public elements: any[];
 
-  public userLoggedIn = false;
-
-  constructor(private dataService: DataService, public router: Router) { }
-
-  loginStatus$: Observable<boolean>;
-  ngOnInit(): void {
-    this.loginStatus$ = this.dataService.isloggedIn;
+  constructor(public helperComponent: helperComponent) {
+    this.elements =[document.getElementById('login'),document.getElementById('logout'),document.getElementById('dashboard')]
+    this.helperComponent.data = this.elements ;
+    console.log(helperComponent.data)
   }
 
-  onLogOut() {
-    this.dataService.logout();
+  ngOnInit(): void {
   }
 
 }

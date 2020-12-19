@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataService } from '../data.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs/operators';
+import { MenuComponent } from '../menu/menu.component';
+import { helperComponent } from '../helper.component';
 
 @Component({
   selector: 'app-login',
@@ -12,32 +13,38 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  loading = false;
   submitted = false;
-  token : any;
-  id : any;
+  token: any;
+  refreshToken: any;
+  id: any;
 
-  constructor(public router: Router, private dataService: DataService, private http: HttpClient,  private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private menuComponent: MenuComponent,
+    private helperComponent: helperComponent
+    ) {
+      this.menuComponent.elements[0].style.visibility = "visible";
+      this.menuComponent.elements[1].style.visibility = "hidden";
+      this.menuComponent.elements[2].style.visibility = "hidden";
+     }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-    });
+  });
   }
 
   get f() { return this.loginForm.controls; }
 
-
-  login() {
-
-    const login = {
-      username: this.f.username.value,
-      password: this.f.password.value
-    };
-
-    this.dataService.login(login);
-
+  onSubmit() {
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
   }
-
+  this.loading = true;
 }
 
+}

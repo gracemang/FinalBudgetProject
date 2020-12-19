@@ -1,33 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
+
 export class SignupComponent implements OnInit {
 
-  signUpForm: FormGroup;
+  form: FormGroup;
+  loading = false;
+  submitted = false;
+  token: any;
+  refreshToken: any;
+  id: any
 
-  constructor(public router: Router, private http: HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
-    this.signUpForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]]
+  });
   }
+  get f() { return this.form.controls; }
 
-  get f() { return this.signUpForm.controls; }
+    onSubmit() {
+        this.submitted = true;
 
-  register() {
-    const signUp = {
-      username: this.f.username.value,
-      password: this.f.password.value
-    };
-  }
 
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.loading = true;
+      }
 }

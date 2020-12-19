@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class DataService {
+@Injectable()
+export class helperComponent {
 
   elements: any[];
   constructor() { }
@@ -16,4 +14,5 @@ export class DataService {
     this.elements = val;
     console.log(this.elements);
   }
+
 }
