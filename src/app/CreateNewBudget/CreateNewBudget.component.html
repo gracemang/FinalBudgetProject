@@ -1,0 +1,32 @@
+
+<div>
+  <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
+
+    <div formArrayName="budgets">
+
+      <div *ngFor="let budget of budgets().controls; let budgetIndex=index">
+
+        <div  class="form-inline w-75" [formGroupName]="budgetIndex" style="padding: 10px; margin: 5px;">
+          Expense Name :
+          <input type="text" formControlName="expenseName">
+          Budget :
+          <input type="number" formControlName="budgetValue">
+          Expense:
+          <input type="number" formControlName="expenseValue">
+
+          <button (click)="removeBudget(budgetIndex)">Remove</button>
+
+        </div>
+
+      </div>
+    </div>
+
+    <p>
+      <button type="button" (click)="addBudget()">New Expense</button>
+    </p>
+    <p>
+      <button type="submit">Save</button>
+    </p>
+
+  </form>
+</div>

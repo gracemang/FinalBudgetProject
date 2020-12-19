@@ -1,0 +1,45 @@
+
+<div class="signup">
+  <h1 class="head">Sign Up</h1>
+  <form [formGroup]="signUpForm" (ngSubmit)="register()">
+    <div class="row">
+      <label for="firstName">firstname</label>
+      <br>
+      <input type="text" formControlName="firstname" name="firstname" id="firstname">
+      <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+        <div *ngIf="f.firstname.errors.required">Please enter firstname</div>
+    </div>
+    <div class="row">
+      <label for="lastname">lastname</label>
+      <br>
+      <input type="text" formControlName="lastname" name="lastname" id="lastname">
+      <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+        <div *ngIf="f.lastname.errors.required">Please enter lastname</div>
+    </div>
+      <div class="row">
+          <label for="username">Username</label>
+          <br>
+          <input type="text" formControlName="username" name="username" id="username">
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Please enter Username</div>
+        </div>
+      </div>
+      <div class="row">
+          <label for="password">Password</label>
+          <br>
+          <input type="password" formControlName="password" name="password" id="password">
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Please enter Password</div>
+            <div *ngIf="f.password.errors.minlength">Invalid Password due to it not being at least 6 characters</div>
+        </div>
+      </div>
+      <p id="message" style="visibility: hidden;"></p>
+      <div>
+          <button>Sign Up</button>
+          <a routerLink="../login" class="btn btn-link">Cancel</a>
+      </div>
+  </form>
+
+
+
+

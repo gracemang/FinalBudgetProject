@@ -1,0 +1,27 @@
+<div class="login">
+  <h1 class="head">Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="row">
+          <label for="username">Username</label>
+          <br>
+          <input type="text" formControlName="username" name="username" id="username">
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Please enter Username</div>
+        </div>
+      </div>
+      <div class="row">
+          <label for="password">Password</label>
+          <br>
+          <input type="password" formControlName="password" name="password" id="password">
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Please enter Password</div>
+        </div>
+      </div>
+      <p id="message" style="visibility: hidden;"></p>
+      <div>
+          <button>Login</button>
+      </div>
+    </button>
+    <a routerLink="/signup" class="btn btn-link">Signup</a>
+  </form>
+</div>
